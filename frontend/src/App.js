@@ -8,13 +8,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-// import "./styles.css";
-// // need to import the vis network css in order to show tooltip
-// import "./network.css";
-
 const baseUrl = "http://localhost"
 const serverPort = 8080;
-
 
 function App() {
     const options = {
@@ -31,12 +26,10 @@ function App() {
     const [fromDate, setFromDate] = useState(null);
     const [toDate, setToDate] = useState(null);
 
-    // define handler change function on check-in date
     const handleFromDate = (date) => {
         setFromDate(date);
     };
 
-    // define handler change function on check-out date
     const handleToDate = (date) => {
         setToDate(date);
     };
@@ -56,7 +49,6 @@ function App() {
             }
         }).then(response => response.json())
             .then(data => {
-                console.log(data);
                 let graph = createGraph(data);
                 setGraph(graph);
                 setShowSpinner(false);
@@ -66,26 +58,22 @@ function App() {
     }
 
     function createGraph(data) {
-        let nodes = [];
-        let edges = [];
-        data.map(element => {
-            let node = {};
-            let name = element.name;
-            node["id"] = name;
-            node["label"] = name + "\n" + element.executed;
-            element.references.forEach(ref => {
-                let edge = {};
-                edge["from"] = name;
-                edge["to"] = ref;
+        const edges = [];
+        const nodes = data.map(element => {
+            const {name, executed, references} = element;
+            const node = {
+                id: name,
+                label: name + '\n' + executed,
+            }
+            references.forEach(ref => {
+                const edge = {
+                    from: name,
+                    to: ref,
+                };
                 edges.push(edge);
             })
-            nodes.push(node)
             return node;
         });
-        console.log(nodes);
-        console.log(edges);
-        graph["nodes"] = nodes;
-        graph["edges"] = edges;
         return {nodes: nodes, edges: edges};
     }
 
@@ -132,9 +120,6 @@ function App() {
                     <Graph
                         graph={graph}
                         options={options}
-                        // events={events}
-                        // getNetwork={network => {
-                        //  if you want access to vis.js network api you can set the state in a parent component using this property
                     />
                 </div>}
             </div>

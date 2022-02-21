@@ -20,12 +20,24 @@ For building and running this application you need:
 
 ## How To Use
 
-1. `cp .env.example .env`
-2. Add your Twilio Account SID and Auth Token in `.env`
-3. `mvn spring-boot:run`
-4. `cd frontend`
-5. `npm install`
-6. `npm start`
-7. Head over to http://localhost:3000/ and start analyzing!
+1. Clone the repo 
+   `git clone https://github.com/igityanalla/twilio-studio-flow-analyzer.git`
+2. `cp .env.example .env`
+3. Add your Twilio Account SID and Auth Token in `.env`
+4. `mvn spring-boot:run`
+5. `cd frontend`
+6. `npm install`
+7. `npm start`
+8. Head over to http://localhost:3000/ and start analyzing!
 
 ![Studio Analyzer](/img/form.png?raw=true)
+
+## TODOs
+
+- Add a client-side validation for the flow SID and date formats
+
+## Ideas
+
+- Make each node/step clickable and show more details on executions
+- Have charts to display the percentages of each step being in executions
+- Advanced filtering
